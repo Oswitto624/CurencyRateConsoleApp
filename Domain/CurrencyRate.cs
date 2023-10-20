@@ -1,4 +1,6 @@
-﻿public class CurrencyRate
+﻿using Domain.Base;
+
+public class CurrencyRate : Entity
 {
     public int Id { get; set; }
     public DateTime Date { get; set; }
