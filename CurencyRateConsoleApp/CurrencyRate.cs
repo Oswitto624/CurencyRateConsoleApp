@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-public class CurrencyRate
+﻿public class CurrencyRate
 {
     public int Id { get; set; }
     public DateTime Date { get; set; }
