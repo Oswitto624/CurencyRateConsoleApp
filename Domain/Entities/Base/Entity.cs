@@ -1,6 +1,6 @@
-﻿using Domain.Base.Interfaces;
+﻿using Domain.Entities.Base.Interfaces;
 
-namespace Domain.Base;
+namespace Domain.Entities.Base;
 
 public abstract class Entity : IEntity
 {
