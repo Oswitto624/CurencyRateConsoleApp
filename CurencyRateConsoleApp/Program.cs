@@ -17,8 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 //    opt.UseSqlServer(connectionString);
 //});
 
-
 //var serviceProvider = services.BuildServiceProvider();
+//var dbContext = serviceProvider.GetRequiredService<DbContext>();
 
 using (CurrencyDB context = new CurrencyDB())
 {
@@ -46,9 +46,5 @@ using (CurrencyDB context = new CurrencyDB())
     context.SaveChanges();
     context.CurrencyRates.Add(newCurrencyRate);
     context.SaveChanges();
-
-    //context.Dispose();
-
 }
 
-//var dbContext = serviceProvider.GetRequiredService<DbContext>();
