@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public static class Mapping
 {
-    public static Currency CurrencyMap(CurrencyXML currencyXml)
+    public static Currency CurrencyMap(CurrencyXml currencyXml)
     {
         return new Currency
         {
@@ -9,7 +9,7 @@ public static class Mapping
             NumCode = currencyXml.NumCode,
             CharCode = currencyXml.CharCode,
             Name = currencyXml.Name,
-            Nominal = currencyXml.Nominal
+            Nominal = currencyXml.Nominal,
         };
     }
 
@@ -23,7 +23,7 @@ public static class Mapping
             {
                 Date = DateTime.Parse(currencyParentXml.Date),
                 Value = double.Parse(currencyXml.Value),
-                Currency = Mapping.CurrencyMap(currencyXml)
+                Currency = CurrencyMap(currencyXml)
             });
         }
 
