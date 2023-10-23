@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 public class Currency : NamedEntity
 {
     [Required]
-    public string Id_cbr { get; set; }
+    public string Id_cbr { get; set; } = null!;
     [Required]
-    public string NumCode { get; set; }
+    public string NumCode { get; set; } = null!;
     [Required]
-    public string CharCode { get; set; }
+    public string CharCode { get; set; } = null!;
     [Required]
     public int Nominal { get; set; }
 
