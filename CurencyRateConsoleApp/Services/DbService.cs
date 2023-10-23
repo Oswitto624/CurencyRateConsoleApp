@@ -77,8 +77,18 @@ public class DbService
         var currency = await _db.Currencies.Include(c => c.Rate).FirstOrDefaultAsync(c => c.Id == currencyRate.Id, cancel).ConfigureAwait(false);
 
         if (currency == null) throw new ArgumentException(nameof(currencyRate));
-                
-        _db.CurrencyRates.Update(currencyRate);
+
+        var new_CurrencyRate = new CurrencyRate
+        {
+            Date = currencyRate.Date,
+            Value = currencyRate.Value,
+        };
+
+        await _db.CurrencyRates.AddAsync(new_CurrencyRate);
+
+        currency.Rate.Add(currencyRate);
+
+        _db.Update(currency);
 
         await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
 

@@ -94,6 +94,10 @@ public class CurrencyService
         }
     }
 
+    /// <summary>
+    /// Проверка есть ли данные в БД
+    /// </summary>
+    /// <returns>true если есть, false если нет</returns>
     public async Task<bool> CheckOldData()
     {
         if (await _db.GetCurrencyRatesCountAsync() == 0) return false;
