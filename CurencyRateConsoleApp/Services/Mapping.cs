@@ -1,32 +1,32 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public static class Mapping
 {
-    public static Currency CurrencyMap(CurrencyXml currencyXml)
+    public static List<Currency> MapCurrency(CurrencyParentXml currencyParentXml)
     {
-        return new Currency
-        {
-            Id_cbr = currencyXml.ID,
-            NumCode = currencyXml.NumCode,
-            CharCode = currencyXml.CharCode,
-            Name = currencyXml.Name,
-            Nominal = currencyXml.Nominal,
-        };
-    }
+        var currencies = new List<Currency>();
 
-    public static List<CurrencyRate> MapCurrencyRate(CurrencyParentXml currencyParentXml)
-    {
-        var currencyRates = new List<CurrencyRate>();
-
-        foreach (var currencyXml in currencyParentXml.CurrencyXMLs)
+        foreach (var currencyXml in currencyParentXml.ValuteXml)
         {
-            currencyRates.Add(new CurrencyRate
+            var currency = new Currency
+            {
+                Id_cbr = currencyXml.ID,
+                NumCode = currencyXml.NumCode,
+                CharCode = currencyXml.CharCode,
+                Name = currencyXml.Name,
+                Nominal = currencyXml.Nominal,
+            };
+
+            var currencyRate = new CurrencyRate
             {
                 Date = DateTime.Parse(currencyParentXml.Date),
                 Value = double.Parse(currencyXml.Value),
-                Currency = CurrencyMap(currencyXml)
-            });
+                Currency = currency
+            };
+
+            currency.Rate = new List<CurrencyRate> { currencyRate };
+            currencies.Add(currency);
         }
 
-        return currencyRates;
+        return currencies;
     }
 }
