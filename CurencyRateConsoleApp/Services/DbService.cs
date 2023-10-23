@@ -10,6 +10,16 @@ public class DbService
         _db = db;
     }
 
+    public async Task<Currency> AddAsync(Currency currency, CancellationToken Cancel = default)
+    {
+        if (currency == null) throw new ArgumentNullException(nameof(currency));
+
+        await _db.Currencies.AddAsync(currency);
+        _db.SaveChanges();
+
+        return currency;
+    }
+
     public async Task<IEnumerable<Currency>> GetAllAsync(CancellationToken Cancel = default)
     {
         var currencies = await _db.Currencies
@@ -27,6 +37,13 @@ public class DbService
             .FirstOrDefaultAsync(c => c.Id == id, Cancel)
             .ConfigureAwait(false);
 
+        return currency;
+    }
+
+    public async Task<Currency?> GetByCbrId(string id_cbr)
+    {
+        var currency = await _db.Currencies.Where(c => c.Id_cbr == id_cbr).FirstOrDefaultAsync();
+        
         return currency;
     }
 
@@ -52,4 +69,26 @@ public class DbService
 
         return currency;
     }
+
+    public async Task<CurrencyRate> UpdateCurrencyRateAsync(CurrencyRate currencyRate, CancellationToken cancel = default)
+    {
+        if (currencyRate == null) throw new ArgumentNullException(nameof(currencyRate));
+
+        var currency = await _db.Currencies.Include(c => c.Rate).FirstOrDefaultAsync(c => c.Id == currencyRate.Id, cancel).ConfigureAwait(false);
+
+        if (currency == null) throw new ArgumentException(nameof(currencyRate));
+                
+        _db.CurrencyRates.Update(currencyRate);
+
+        await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
+
+        return currencyRate;
+    }
+
+    public async Task<int> GetCurrencyRatesCountAsync(CancellationToken Cancel = default)
+    {
+        var count = await _db.Currencies.CountAsync(Cancel).ConfigureAwait(false);
+        return count;
+    }
+
 }

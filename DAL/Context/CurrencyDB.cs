@@ -10,10 +10,6 @@ public class CurrencyDB : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CurrencyDB;");
+        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CurrencyDB");
     }
-
-    //public CurrencyDB() { }
-    //public CurrencyDB(DbContextOptions<CurrencyDB> options) : base(options) { }
-
 }
